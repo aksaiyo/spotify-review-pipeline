@@ -6,3 +6,5 @@ data/*.csv
 *.db-wal
 __pycache__/
 .venv/
+grading/records.jsonl
+grading/records.jsonl.gz*

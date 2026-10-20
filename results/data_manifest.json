@@ -1,0 +1,7 @@
+{
+  "source_file": "spotify_reviews_18months.csv",
+  "sha256": "1fc85de68a304dd8978b537cfa58793d5f41cbaf417fa32cb53899f83a2fcef6",
+  "bytes": 97400616,
+  "ingested_at": 1792498000.0861845,
+  "rows": 660622
+}

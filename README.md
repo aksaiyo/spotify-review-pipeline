@@ -60,7 +60,7 @@ severity 1-5. Worked examples in the enrich prompt (`prompts/enrich_v1.md`).
 - 50 hand-labeled reviews (labeled by the author, blind to model output):
   https://docs.google.com/spreadsheets/d/1IbtB_lo1V5RKwas8zQfyQG5gWTtNG6EG_Ey4dBgX1Yo
 - Golden texts are in the classified corpus; golden answer labels are never model inputs.
-- `evals/golden_eval.json`: per-case and per-field accuracy. TODO: fill after labeling + run.
+- `evals/golden_eval.json`: per-case and per-field accuracy. Pending: the author's hand labels were not finished when this was written; run `python3 pipeline/eval_golden.py runs/pipeline.db` after labeling.
 - Independent verifier procedure: deterministic sample (seed 42), verifier gets the original
   text + rubric, never the enricher's answer; code compares fields (`evals/verify_main-verify.json`).
 - Planted-error and injection tests: `evals/awkward_tests.json` (6 offline + 2 live checks).
@@ -70,8 +70,8 @@ severity 1-5. Worked examples in the enrich prompt (`prompts/enrich_v1.md`).
 - Pilot: 100 reviews, cold run then warm replay - `cost/pilot_calls.jsonl`,
   `cost/pilot_records.jsonl`, `cost/pilot_timing.json`.
 - Calculator: `cost/calculator.py` + dated editable `cost/rates.csv`; offline by default.
-- Measured per-review cost: TODO after pilot. Budget decision: hard stop $9.00 total spend.
-- Full-run (660K) scenario and no-reuse comparison: TODO after pilot.
+- Measured per-review cost: 71.5 input + 74.9 output tokens = $0.0000446 per review (gpt-6-luna, reasoning none; $0.10/M in, $0.50/M out). Budget decision: hard stop $9.00 total spend. Final run spend: $4.39 in the ledger of the final DB, plus ~$0.36 from a first run whose sandbox was wiped (about $4.75 total, under the $10 cap).
+- Full-run (660K) scenario from measured rates: about $23, which is over the $10 cap, so scope is the 100K floor. `python3 cost/calculator.py` replays this offline.
 
 ## 8. Interruption and resume
 - Recording: `evals/full_run.typescript` (captured with `script`).
@@ -100,7 +100,10 @@ saved calculations.
   supporting metrics and evidence IDs.
 
 ## 12. Limitations and failure accounting
-TODO after run: unprocessed rows (budget), verifier disagreements, known bias notes.
+- Classified 100,538 of 660,609 nonempty reviews (15.2%). The other 560,071 are unprocessed by budget choice and 13 are empty text; the export marks them quarantined with reasons. About 330 attempted batches' reviews hit invalid model output twice and stayed pending.
+- Independent verifier on a seed-42 sample of 500 (499 compared): agreement topic 89.4%, intent 94.4%, severity 91.0%, sentiment MAE 0.067; 103 records had at least one disagreement. Verification is one model re-reading the text, not ground truth. Golden-set accuracy is pending the author's labels.
+- Issue grouping is deterministic (topic plus most common entity); 4,868 issues, most are tiny, and only 43 got model-written names.
+- Run history: a first run (about 9.7K records) was lost when the sandbox was wiped; the final run was rebuilt and re-run from scratch. A stall caused by VM suspension was fixed with a wall-clock request deadline.
 Honest accounting: nonempty quarantines reduce the classified fraction.
 
 ## 13. Repo hygiene

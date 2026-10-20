@@ -1,0 +1,9 @@
+{
+  "note": "Interruption: first 10K run SIGINTed after >=600 new records, process later hard-killed; resumed under same config (runs main-10k-resume2/3) then continued to 100K (main-100k-resume). Corrected metric: across all successful classify calls, only 6 review IDs appear in more than one call (3 pairs; calls whose results were ledgered but not saved before a kill, plus in-flight overlap) vs 100,538 completed; no ID that was already saved as completed was re-sent by selection (resume selects status=pending only). Earlier 'resent=3000' figure compared against a mid snapshot taken after resume had already begun and is not a valid metric.",
+  "before": 6279,
+  "mid_interrupted": 7091,
+  "after_now": 100538,
+  "resent_completed_ids": [],
+  "pass": true,
+  "duplicate_ids_across_ok_calls": 6
+}

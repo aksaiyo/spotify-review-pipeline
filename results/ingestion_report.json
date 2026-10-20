@@ -1,0 +1,129 @@
+{
+  "file": "data/spotify_reviews_18months.csv",
+  "file_bytes": 97400616,
+  "file_sha256": "1fc85de68a304dd8978b537cfa58793d5f41cbaf417fa32cb53899f83a2fcef6",
+  "columns": [
+    "review_id",
+    "review_text",
+    "review_rating",
+    "review_likes",
+    "app_version",
+    "review_timestamp"
+  ],
+  "rows": 660622,
+  "empty_texts_quarantined": 13,
+  "missing_app_version": 159701,
+  "duplicate_review_ids": {},
+  "distinct_nonempty_texts": 484189,
+  "distinct_nonempty_raw_sql": 476651,
+  "dedup_basis": "exact",
+  "extra_rows_from_exact_text_duplicates": 176420,
+  "rating_distribution": {
+    "1": 242620,
+    "2": 31034,
+    "3": 33268,
+    "4": 54140,
+    "5": 299560
+  },
+  "month_buckets_top": [
+    [
+      "2023-10",
+      89104
+    ],
+    [
+      "2023-07",
+      85079
+    ],
+    [
+      "2023-09",
+      41634
+    ],
+    [
+      "2023-11",
+      34525
+    ],
+    [
+      "2022-07",
+      32784
+    ],
+    [
+      "2022-12",
+      31744
+    ],
+    [
+      "2022-08",
+      30732
+    ],
+    [
+      "2023-08",
+      30438
+    ],
+    [
+      "2022-06",
+      30338
+    ],
+    [
+      "2023-01",
+      28609
+    ],
+    [
+      "2023-05",
+      28062
+    ],
+    [
+      "2022-10",
+      27572
+    ],
+    [
+      "2022-11",
+      27349
+    ],
+    [
+      "2023-03",
+      27238
+    ],
+    [
+      "2023-06",
+      27117
+    ],
+    [
+      "2022-09",
+      26933
+    ],
+    [
+      "2023-04",
+      25014
+    ],
+    [
+      "2023-02",
+      20889
+    ],
+    [
+      "2022-05",
+      15461
+    ]
+  ],
+  "expected_vs_actual": {
+    "rows": {
+      "expected": 660622,
+      "actual": 660622
+    },
+    "empty_texts": {
+      "expected": 13,
+      "actual": 13
+    },
+    "missing_app_version": {
+      "expected": 159701,
+      "actual": 159701
+    },
+    "distinct_nonempty_texts": {
+      "expected": 484189,
+      "actual": 484189
+    },
+    "file_bytes": {
+      "expected": 97400616,
+      "actual": 97400616
+    }
+  },
+  "elapsed_s": 145.99
+}
