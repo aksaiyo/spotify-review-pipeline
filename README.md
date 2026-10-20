@@ -29,6 +29,28 @@ without re-paying for completed IDs.
 | rank | code (SQL) | no | counts, mean severity, priority score, stable tie-break |
 | memo | LLM role `memo` | yes | prose from saved aggregates + bounded evidence pack only; code validates every cited ID/number |
 
+
+### Architecture diagram
+```mermaid
+flowchart LR
+  CSV[spotify_reviews_18months.csv] -->|code: parse, hash, dedup, quarantine| ING[1 Ingest/Profile]
+  ING --> DB[(SQLite pipeline.db)]
+  DB -->|pending, exact-text cache miss, <=50 per call| ENR[2 Enrich - LLM role enrich]
+  ENR -->|validated JSON saved per batch| DB
+  ENR -. invalid/transient: stay pending, ledgered, retry on resume .-> ENR
+  DB -->|seed-42 sample, text only| VER[3 Verify - LLM role verify]
+  VER -->|agreement metrics| DB
+  DB -->|complaints + cancellations| GRP[4 Group - code, one LLM naming call]
+  GRP --> DB
+  DB -->|SQL: count, severity sum, tie-break| RNK[5 Rank - code only]
+  RNK --> DB
+  DB -->|saved aggregates + evidence pack| MEMO[6 Recommend - LLM role memo, code validates every number]
+  DB --> API[Backend web/backend.py]
+  MEMO --> API
+  API --> DASH[Dashboard web/dashboard.html]
+```
+Spend control: every call is written to a ledger table before and after; a shared budget stops admission at $9.00.
+
 Exact-text cache: 484,189 distinct nonempty texts among 660,609 nonempty rows, so duplicate
 rows are filled from cache at zero cost (recorded with `cache_source_id`, never reported as
 new API calls).
