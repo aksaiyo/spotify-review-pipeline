@@ -1,0 +1,666 @@
+{
+  "run_id": "main-verify3",
+  "sample": 500,
+  "compared": 450,
+  "seed": 42,
+  "agreement": {
+    "topic": 0.8933,
+    "intent": 0.9378,
+    "severity": 0.9044
+  },
+  "sentiment_mae": 0.0652,
+  "disagreement_count": 97,
+  "disagreements": [
+    {
+      "review_id": "0060a5bc-6a9d-4cbb-8d3e-4746da8a1c06",
+      "enrich": {
+        "topic": "other",
+        "intent": "complaint",
+        "severity": 2
+      },
+      "verify": {
+        "topic": "other",
+        "intent": "unclear",
+        "severity": 2
+      }
+    },
+    {
+      "review_id": "019c2794-8413-49ba-b627-22a4354d8e2c",
+      "enrich": {
+        "topic": "other",
+        "intent": "praise",
+        "severity": 1
+      },
+      "verify": {
+        "topic": "catalog",
+        "intent": "praise",
+        "severity": 1
+      }
+    },
+    {
+      "review_id": "033d3f9d-6308-42f0-ac89-63f360b103c4",
+      "enrich": {
+        "topic": "catalog",
+        "intent": "request",
+        "severity": 1
+      },
+      "verify": {
+        "topic": "catalog",
+        "intent": "unclear",
+        "severity": 1
+      }
+    },
+    {
+      "review_id": "0a8fad31-37ec-475d-aafe-553d485f8abe",
+      "enrich": {
+        "topic": "other",
+        "intent": "praise",
+        "severity": 1
+      },
+      "verify": {
+        "topic": "other",
+        "intent": "unclear",
+        "severity": 1
+      }
+    },
+    {
+      "review_id": "0f90ba9d-d6eb-4406-ba2c-96f96e4c9fb7",
+      "enrich": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 2
+      },
+      "verify": {
+        "topic": "other",
+        "intent": "complaint",
+        "severity": 2
+      }
+    },
+    {
+      "review_id": "10e61cd2-fc2f-48ce-96ab-b3fd0799d744",
+      "enrich": {
+        "topic": "other",
+        "intent": "cancellation",
+        "severity": 1
+      },
+      "verify": {
+        "topic": "billing",
+        "intent": "cancellation",
+        "severity": 2
+      }
+    },
+    {
+      "review_id": "19f987c0-c3ed-4f7a-b984-351c0d9f059a",
+      "enrich": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 2
+      },
+      "verify": {
+        "topic": "billing",
+        "intent": "complaint",
+        "severity": 2
+      }
+    },
+    {
+      "review_id": "212b6b18-7e26-4e7f-9faa-5b67fff16938",
+      "enrich": {
+        "topic": "billing",
+        "intent": "complaint",
+        "severity": 3
+      },
+      "verify": {
+        "topic": "catalog",
+        "intent": "complaint",
+        "severity": 3
+      }
+    },
+    {
+      "review_id": "22850251-1ec6-430e-b7d1-cbaa7404c559",
+      "enrich": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 2
+      },
+      "verify": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 3
+      }
+    },
+    {
+      "review_id": "3e82cf28-6b0a-4980-902c-b6aa154d353a",
+      "enrich": {
+        "topic": "other",
+        "intent": "complaint",
+        "severity": 2
+      },
+      "verify": {
+        "topic": "billing",
+        "intent": "complaint",
+        "severity": 2
+      }
+    },
+    {
+      "review_id": "70a1c30c-f625-4d57-a1ad-9bf5f049e1d9",
+      "enrich": {
+        "topic": "playback",
+        "intent": "complaint",
+        "severity": 3
+      },
+      "verify": {
+        "topic": "playback",
+        "intent": "complaint",
+        "severity": 4
+      }
+    },
+    {
+      "review_id": "01caa677-5249-4f0b-87cd-a4da179f5565",
+      "enrich": {
+        "topic": "usability",
+        "intent": "cancellation",
+        "severity": 3
+      },
+      "verify": {
+        "topic": "billing",
+        "intent": "cancellation",
+        "severity": 3
+      }
+    },
+    {
+      "review_id": "0600a414-3c9d-4c02-9fef-032ebe33707a",
+      "enrich": {
+        "topic": "usability",
+        "intent": "request",
+        "severity": 1
+      },
+      "verify": {
+        "topic": "usability",
+        "intent": "request",
+        "severity": 2
+      }
+    },
+    {
+      "review_id": "13b8599f-d018-4219-a0e4-2d3bf27dae31",
+      "enrich": {
+        "topic": "catalog",
+        "intent": "complaint",
+        "severity": 2
+      },
+      "verify": {
+        "topic": "catalog",
+        "intent": "request",
+        "severity": 1
+      }
+    },
+    {
+      "review_id": "188662e5-71fe-4972-9dde-2ddecd8e3c4e",
+      "enrich": {
+        "topic": "playback",
+        "intent": "complaint",
+        "severity": 3
+      },
+      "verify": {
+        "topic": "playback",
+        "intent": "complaint",
+        "severity": 4
+      }
+    },
+    {
+      "review_id": "1cb86bb1-776a-4ec6-9844-6f706a734847",
+      "enrich": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 4
+      },
+      "verify": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 3
+      }
+    },
+    {
+      "review_id": "c608b4e2-af45-4940-aef0-2424da586894",
+      "enrich": {
+        "topic": "other",
+        "intent": "complaint",
+        "severity": 2
+      },
+      "verify": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 3
+      }
+    },
+    {
+      "review_id": "0190be1c-677c-464e-95ec-f2e6799a7f39",
+      "enrich": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 2
+      },
+      "verify": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 3
+      }
+    },
+    {
+      "review_id": "0795efeb-39bf-4d75-8d39-e96e11265c55",
+      "enrich": {
+        "topic": "catalog",
+        "intent": "complaint",
+        "severity": 2
+      },
+      "verify": {
+        "topic": "catalog",
+        "intent": "complaint",
+        "severity": 3
+      }
+    },
+    {
+      "review_id": "07f3b119-9fc2-46e8-8bad-512e7357245e",
+      "enrich": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 3
+      },
+      "verify": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 2
+      }
+    },
+    {
+      "review_id": "0d9ff07b-2f36-4c81-a35a-c48d083f0d31",
+      "enrich": {
+        "topic": "catalog",
+        "intent": "praise",
+        "severity": 1
+      },
+      "verify": {
+        "topic": "other",
+        "intent": "unclear",
+        "severity": 1
+      }
+    },
+    {
+      "review_id": "0f6e3449-6905-46b6-9dce-07573e915935",
+      "enrich": {
+        "topic": "usability",
+        "intent": "request",
+        "severity": 3
+      },
+      "verify": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 3
+      }
+    },
+    {
+      "review_id": "12410f78-34d8-400d-b95d-8e894e02e860",
+      "enrich": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 2
+      },
+      "verify": {
+        "topic": "other",
+        "intent": "complaint",
+        "severity": 2
+      }
+    },
+    {
+      "review_id": "15175ecd-6fd4-41e6-8dc9-787157692ed9",
+      "enrich": {
+        "topic": "usability",
+        "intent": "praise",
+        "severity": 1
+      },
+      "verify": {
+        "topic": "catalog",
+        "intent": "praise",
+        "severity": 1
+      }
+    },
+    {
+      "review_id": "1d3e805a-36fa-43ce-a41c-bda0397df35c",
+      "enrich": {
+        "topic": "other",
+        "intent": "unclear",
+        "severity": 1
+      },
+      "verify": {
+        "topic": "other",
+        "intent": "complaint",
+        "severity": 2
+      }
+    },
+    {
+      "review_id": "245762e2-2ce6-4699-a484-eb40fa42b099",
+      "enrich": {
+        "topic": "usability",
+        "intent": "cancellation",
+        "severity": 2
+      },
+      "verify": {
+        "topic": "usability",
+        "intent": "cancellation",
+        "severity": 3
+      }
+    },
+    {
+      "review_id": "252bc50a-6c20-4daf-b92a-ba582b37248e",
+      "enrich": {
+        "topic": "access",
+        "intent": "complaint",
+        "severity": 4
+      },
+      "verify": {
+        "topic": "billing",
+        "intent": "complaint",
+        "severity": 4
+      }
+    },
+    {
+      "review_id": "2ca97cbb-c07f-46a0-9b28-6ad28d3d8406",
+      "enrich": {
+        "topic": "playback",
+        "intent": "complaint",
+        "severity": 3
+      },
+      "verify": {
+        "topic": "other",
+        "intent": "complaint",
+        "severity": 2
+      }
+    },
+    {
+      "review_id": "687fa31a-bf58-4e81-bf71-4174448bb2e8",
+      "enrich": {
+        "topic": "usability",
+        "intent": "request",
+        "severity": 3
+      },
+      "verify": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 3
+      }
+    },
+    {
+      "review_id": "ae7f1da6-8656-4abc-8d2d-3730923fa741",
+      "enrich": {
+        "topic": "billing",
+        "intent": "cancellation",
+        "severity": 5
+      },
+      "verify": {
+        "topic": "billing",
+        "intent": "cancellation",
+        "severity": 4
+      }
+    },
+    {
+      "review_id": "f572266c-25c9-4dc9-9780-4efe596a13a0",
+      "enrich": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 3
+      },
+      "verify": {
+        "topic": "playback",
+        "intent": "complaint",
+        "severity": 3
+      }
+    },
+    {
+      "review_id": "00a5f9c0-21ca-4862-a147-e96db8b1799d",
+      "enrich": {
+        "topic": "billing",
+        "intent": "complaint",
+        "severity": 3
+      },
+      "verify": {
+        "topic": "billing",
+        "intent": "cancellation",
+        "severity": 3
+      }
+    },
+    {
+      "review_id": "06c4f0dd-0ee7-42f9-bc83-523b769f89d3",
+      "enrich": {
+        "topic": "billing",
+        "intent": "unclear",
+        "severity": 1
+      },
+      "verify": {
+        "topic": "billing",
+        "intent": "request",
+        "severity": 1
+      }
+    },
+    {
+      "review_id": "0b898718-4d60-4359-bee4-08fd1896d9e3",
+      "enrich": {
+        "topic": "other",
+        "intent": "unclear",
+        "severity": 1
+      },
+      "verify": {
+        "topic": "other",
+        "intent": "praise",
+        "severity": 1
+      }
+    },
+    {
+      "review_id": "0ccc1550-309f-44ec-82d2-300964d3490f",
+      "enrich": {
+        "topic": "downloads",
+        "intent": "unclear",
+        "severity": 1
+      },
+      "verify": {
+        "topic": "other",
+        "intent": "unclear",
+        "severity": 1
+      }
+    },
+    {
+      "review_id": "104ed472-b724-40e2-a6fe-7d627f368512",
+      "enrich": {
+        "topic": "catalog",
+        "intent": "praise",
+        "severity": 1
+      },
+      "verify": {
+        "topic": "other",
+        "intent": "praise",
+        "severity": 1
+      }
+    },
+    {
+      "review_id": "11198de1-d5b7-4b44-bf7b-89be866d2406",
+      "enrich": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 2
+      },
+      "verify": {
+        "topic": "other",
+        "intent": "complaint",
+        "severity": 2
+      }
+    },
+    {
+      "review_id": "16f0fcac-0da2-445e-b3a0-c302d0fdd360",
+      "enrich": {
+        "topic": "other",
+        "intent": "praise",
+        "severity": 1
+      },
+      "verify": {
+        "topic": "playback",
+        "intent": "praise",
+        "severity": 1
+      }
+    },
+    {
+      "review_id": "1943fd66-de2f-45c4-ba9e-5c2697bc47f1",
+      "enrich": {
+        "topic": "catalog",
+        "intent": "request",
+        "severity": 1
+      },
+      "verify": {
+        "topic": "other",
+        "intent": "request",
+        "severity": 1
+      }
+    },
+    {
+      "review_id": "19b30c9a-ee7f-488f-956e-97af26899961",
+      "enrich": {
+        "topic": "other",
+        "intent": "complaint",
+        "severity": 2
+      },
+      "verify": {
+        "topic": "billing",
+        "intent": "complaint",
+        "severity": 2
+      }
+    },
+    {
+      "review_id": "20e010c0-54d8-432d-972f-18786f1e2a0f",
+      "enrich": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 3
+      },
+      "verify": {
+        "topic": "billing",
+        "intent": "request",
+        "severity": 3
+      }
+    },
+    {
+      "review_id": "25f09e04-9872-4afe-8594-6950f0dcf34d",
+      "enrich": {
+        "topic": "downloads",
+        "intent": "complaint",
+        "severity": 4
+      },
+      "verify": {
+        "topic": "downloads",
+        "intent": "complaint",
+        "severity": 3
+      }
+    },
+    {
+      "review_id": "26136f0a-b457-48d9-8594-210fec00305a",
+      "enrich": {
+        "topic": "billing",
+        "intent": "complaint",
+        "severity": 3
+      },
+      "verify": {
+        "topic": "billing",
+        "intent": "complaint",
+        "severity": 2
+      }
+    },
+    {
+      "review_id": "2a8965eb-49a2-40a5-9166-538f33a9eddc",
+      "enrich": {
+        "topic": "access",
+        "intent": "complaint",
+        "severity": 4
+      },
+      "verify": {
+        "topic": "playback",
+        "intent": "cancellation",
+        "severity": 5
+      }
+    },
+    {
+      "review_id": "b0c4dbaf-d027-48b4-bdbc-56abaea8dd22",
+      "enrich": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 2
+      },
+      "verify": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 3
+      }
+    },
+    {
+      "review_id": "efc87f16-787c-4adb-9bfc-d3769dcbf418",
+      "enrich": {
+        "topic": "usability",
+        "intent": "cancellation",
+        "severity": 2
+      },
+      "verify": {
+        "topic": "usability",
+        "intent": "cancellation",
+        "severity": 3
+      }
+    },
+    {
+      "review_id": "064e8f8b-00db-47a4-994e-28dff7be209e",
+      "enrich": {
+        "topic": "playback",
+        "intent": "complaint",
+        "severity": 3
+      },
+      "verify": {
+        "topic": "playback",
+        "intent": "complaint",
+        "severity": 4
+      }
+    },
+    {
+      "review_id": "0a7868b3-3238-45c5-b774-debc8d464ffe",
+      "enrich": {
+        "topic": "usability",
+        "intent": "cancellation",
+        "severity": 3
+      },
+      "verify": {
+        "topic": "billing",
+        "intent": "cancellation",
+        "severity": 3
+      }
+    },
+    {
+      "review_id": "0fa3a7da-e90c-4d12-ad54-292a5ab6cc03",
+      "enrich": {
+        "topic": "playback",
+        "intent": "complaint",
+        "severity": 4
+      },
+      "verify": {
+        "topic": "playback",
+        "intent": "complaint",
+        "severity": 3
+      }
+    },
+    {
+      "review_id": "22aebaea-fe35-4df4-9bc2-871ab7fec229",
+      "enrich": {
+        "topic": "usability",
+        "intent": "request",
+        "severity": 1
+      },
+      "verify": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 2
+      }
+    }
+  ],
+  "verify_cost_usd": 0.017039
+}

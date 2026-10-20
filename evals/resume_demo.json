@@ -1,9 +1,9 @@
 {
-  "note": "Interruption: first 10K run SIGINTed after >=600 new records, process later hard-killed; resumed under same config (runs main-10k-resume2/3) then continued to 100K (main-100k-resume). Corrected metric: across all successful classify calls, only 6 review IDs appear in more than one call (3 pairs; calls whose results were ledgered but not saved before a kill, plus in-flight overlap) vs 100,538 completed; no ID that was already saved as completed was re-sent by selection (resume selects status=pending only). Earlier 'resent=3000' figure compared against a mid snapshot taken after resume had already begun and is not a valid metric.",
-  "before": 6279,
-  "mid_interrupted": 7091,
-  "after_now": 100538,
-  "resent_completed_ids": [],
-  "pass": true,
-  "duplicate_ids_across_ok_calls": 6
+  "note": "Run interrupted (SIGINT then hard kill) after the 500 checkpoint and first leg of the 10K; resumed under the same config and continued to 100K. 'before' = IDs completed by calls up to the interruption and not re-sent later; 'after' = all completed IDs at the end.",
+  "before": 1673,
+  "after": 100538,
+  "reprocessed_checkpoint_ids": 0,
+  "duplicate_ids_across_ok_calls_all_runs": 6,
+  "duplicate_note": "6 IDs were sent in two successful calls because the first result failed validation and the review stayed pending for retry; none of them is in the checkpoint-before set.",
+  "pass": true
 }

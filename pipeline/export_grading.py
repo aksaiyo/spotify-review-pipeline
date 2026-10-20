@@ -14,6 +14,9 @@ def label_config(model, prompt_version):
 def six_dp(x):
     return str(Decimal(str(x)).quantize(Decimal("0.000001"), rounding=ROUND_HALF_UP))
 
+# Calls up to this ID are the pre-interruption (initial) phase: 500 checkpoint + first 10K leg.
+INITIAL_LAST_CALL = 34
+
 def export(db_path, out_dir, run_id, phase="initial"):
     db = DB(db_path)
     os.makedirs(out_dir, exist_ok=True)
@@ -73,10 +76,10 @@ def export(db_path, out_dir, run_id, phase="initial"):
             role = {"classify": "enrich", "verify": "verify", "group": "group", "memo": "memo"}.get(stage, stage)
             rec = {"request_id": f"call-{cid}", "role": role,
                    "review_ids": json.loads(ids) if ids else [],
-                   "model": model, "phase": "resume" if "resume" in (rn or "") else "initial",
+                   "model": model, "phase": "initial" if cid <= INITIAL_LAST_CALL else "resume",
                    "outcome": "succeeded" if status == "ok" else "failed",
                    "label_config": label_config(model or "unknown", pv or "unknown"),
-                   "input_tokens": itok, "output_tokens": otok}
+                   "input_tokens": itok or 0, "output_tokens": otok or 0}
             f.write(json.dumps(rec, separators=(",", ":")) + "\n")
     print(f"exported: {n_done} completed, {n_quar} quarantined, {len(rows)} issues -> {out_dir}")
 

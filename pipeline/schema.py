@@ -8,9 +8,11 @@ def sha256_text(t: str) -> str:
 def canonical(value):
     return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
 
+ROW_FIELDS = ("review_id", "review_text", "review_rating", "review_likes", "app_version", "review_timestamp")
+
 def row_sha(row: dict) -> str:
-    """Contract hashing: sha256 of canonical JSON of the raw row values."""
-    return hashlib.sha256(canonical(row).encode("utf-8")).hexdigest()
+    """Contract hashing: sha256 of compact canonical JSON of the six original field strings, in order."""
+    return hashlib.sha256(canonical([row[k] for k in ROW_FIELDS]).encode("utf-8")).hexdigest()
 
 def validate_record(rec: dict, source_text: str, source_id) -> list:
     errs = []

@@ -100,7 +100,7 @@ saved calculations.
 
 ## 12. Limitations and failure accounting
 - Classified 100,538 of 660,609 nonempty reviews (15.2%). The other 560,071 are unprocessed by budget choice and 13 are empty text; the export marks them quarantined with reasons. About 330 attempted batches' reviews hit invalid model output twice and stayed pending.
-- Independent verifier on a seed-42 sample of 500 (499 compared): agreement topic 89.4%, intent 94.4%, severity 91.0%, sentiment MAE 0.067; 103 records had at least one disagreement. Verification is one model re-reading the text, not ground truth. Golden-set accuracy is pending the author's labels.
+- Independent verifier on a seed-42 sample of 500 (450 compared; one verifier batch failed): agreement topic 89.3%, intent 93.8%, severity 90.4%, sentiment MAE 0.065; 97 compared records had at least one disagreement. Verification is one model re-reading the text, not ground truth. Golden-set accuracy is pending the author's labels.
 - Issue grouping is deterministic (topic plus most common entity); 4,868 issues, most are tiny, and only 43 got model-written names.
 - Run history: a first run (about 9.7K records) was lost when the sandbox was wiped; the final run was rebuilt and re-run from scratch. A stall caused by VM suspension was fixed with a wall-clock request deadline.
 Honest accounting: nonempty quarantines reduce the classified fraction.
