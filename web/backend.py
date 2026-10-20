@@ -5,7 +5,7 @@ import json, os, sqlite3, sys
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlparse
 
-DB_PATH = os.environ.get("PIPELINE_DB", "runs/pipeline.db")
+DB_PATH = os.environ.get("PIPELINE_DB", os.path.join(os.path.dirname(os.path.abspath(__file__)), "dashboard.db"))
 MEMO_PATH = os.environ.get("MEMO_PATH", "runs/memo.md")
 
 def q(sql, args=()):
@@ -13,8 +13,22 @@ def q(sql, args=()):
     rows = [dict(r) for r in con.execute(sql, args)]
     con.close(); return rows
 
+def has_table(n):
+    return bool(q("SELECT 1 FROM sqlite_master WHERE name=?", (n,)))
+
 def metrics():
     m = {}
+    if has_table("meta"):
+        meta = {r["key"]: json.loads(r["value"]) for r in q("SELECT key, value FROM meta")}
+        m["source_rows"] = meta["source_rows"]; m["completed"] = meta["completed"]
+        m["quarantined"] = meta["quarantined_empty"] + meta["unprocessed"]
+        m["quarantine_reasons"] = [{"reason": "empty_review_text", "n": meta["quarantined_empty"]},
+                                   {"reason": "unprocessed_budget_scope", "n": meta["unprocessed"]}]
+        m["cache_served"] = meta["cache_served"]; m["spend_usd"] = meta["spend_usd"]
+        m["intent_breakdown"] = q("SELECT intent, COUNT(*) n FROM enriched WHERE status='completed' GROUP BY 1 ORDER BY 2 DESC")
+        m["topic_breakdown"] = q("SELECT topic, COUNT(*) n FROM enriched WHERE status='completed' GROUP BY 1 ORDER BY 2 DESC")
+        m["severity_hist"] = q("SELECT severity, COUNT(*) n FROM enriched WHERE status='completed' GROUP BY 1 ORDER BY 1")
+        return m
     m["source_rows"] = q("SELECT COUNT(*) c FROM source_reviews")[0]["c"]
     m["completed"] = q("SELECT COUNT(*) c FROM source_reviews WHERE status='completed'")[0]["c"]
     m["quarantined"] = q("SELECT COUNT(*) c FROM source_reviews WHERE status='quarantined'")[0]["c"]
@@ -32,7 +46,7 @@ def issues():
         FROM membership m JOIN enriched e ON e.review_id=m.review_id
         LEFT JOIN issues i ON i.issue_id=m.issue_id
         WHERE e.intent IN ('complaint','cancellation')
-        GROUP BY m.issue_id ORDER BY priority_score DESC, m.issue_id ASC""")
+        GROUP BY m.issue_id ORDER BY priority_score DESC, m.issue_id ASC LIMIT 200""")
 
 def issue_detail(iid):
     return {"issue_id": iid, "samples": q("""SELECT m.review_id, s.review_text, e.severity, e.evidence_quote
@@ -55,7 +69,9 @@ class H(BaseHTTPRequestHandler):
             elif p == "/api/issues": self._send(issues())
             elif p.startswith("/api/issue/"): self._send(issue_detail(p.rsplit("/", 1)[1]))
             elif p == "/api/memo":
-                self._send(open(MEMO_PATH).read() if os.path.exists(MEMO_PATH) else "memo not generated yet", ctype="text/markdown")
+                body = (q("SELECT body FROM memo WHERE id=1") or [{"body": None}])[0]["body"] if has_table("memo") else None
+                if body is None and os.path.exists(MEMO_PATH): body = open(MEMO_PATH).read()
+                self._send(body or "memo not generated yet", ctype="text/markdown")
             elif p in ("/", "/index.html"):
                 self._send(open(os.path.join(os.path.dirname(__file__), "dashboard.html")).read(), ctype="text/html")
             else: self._send({"error": "not found"}, 404)

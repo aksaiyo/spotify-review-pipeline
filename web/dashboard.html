@@ -6,11 +6,14 @@ th{background:#f4f4f4}.bar{background:#1db954;height:14px;display:inline-block}
 .card b{display:block;font-size:1.6rem}h1,h2{color:#191414}pre{background:#f7f7f7;padding:1rem;white-space:pre-wrap}</style></head>
 <body><h1>Spotify Review Pipeline - Decision Dashboard</h1>
 <div id="cards"></div><h2>Intent &amp; severity</h2><div id="breakdown"></div>
-<h2>Issue ranking (complaints + cancellations, priority = severity sum)</h2>
+<h2>Issue ranking (top 50 of the full ranking; complaints + cancellations, priority = severity sum)</h2>
 <table id="issues"><thead><tr><th>#</th><th>Issue</th><th>Complaints</th><th>Severity sum</th><th>Mean severity</th><th></th></tr></thead><tbody></tbody></table>
+<h2>Evidence for selected issue</h2><div id="evidence">Click an issue row to load the highest-severity reviews behind it.</div>
 <h2>AI recommendation (grounded in saved metrics + evidence)</h2><pre id="memo">loading...</pre>
 <script>
 async function j(u){const r=await fetch(u);return r.json()}
+async function showIssue(id){const d=await j('/api/issue/'+encodeURIComponent(id));
+evidence.innerHTML='<b>'+id+'</b><table><tr><th>review_id</th><th>severity</th><th>evidence quote</th><th>review text</th></tr>'+d.samples.map(s=>`<tr><td>${s.review_id}</td><td>${s.severity}</td><td>${(s.evidence_quote||'').replace(/</g,'&lt;')}</td><td>${(s.review_text||'').slice(0,300).replace(/</g,'&lt;')}</td></tr>`).join('')+'</table>'}
 (async()=>{
 const m=await j('/api/metrics');
 cards.innerHTML=[['Source rows',m.source_rows],['Classified',m.completed],['Quarantined',m.quarantined],
@@ -19,7 +22,7 @@ cards.innerHTML=[['Source rows',m.source_rows],['Classified',m.completed],['Quar
 breakdown.innerHTML='<b>Intent:</b> '+m.intent_breakdown.map(r=>`${r.intent}: ${r.n}`).join(' · ')
  +'<br><b>Severity:</b> '+m.severity_hist.map(r=>`${r.severity}: ${r.n}`).join(' · ');
 const iss=await j('/api/issues');const max=Math.max(...iss.map(r=>r.priority_score),1);
-issues.querySelector('tbody').innerHTML=iss.map((r,i)=>`<tr><td>${i+1}</td><td>${r.name||r.issue_id}</td>
+issues.querySelector('tbody').innerHTML=iss.slice(0,50).map((r,i)=>`<tr style="cursor:pointer" onclick="showIssue('${r.issue_id}')"><td>${i+1}</td><td>${r.name||r.issue_id}</td>
  <td>${r.complaint_count}</td><td>${r.priority_score}</td><td>${r.mean_severity}</td>
  <td><span class="bar" style="width:${Math.round(150*r.priority_score/max)}px"></span></td></tr>`).join('');
 memo.textContent=await (await fetch('/api/memo')).text();

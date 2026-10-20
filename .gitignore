@@ -8,3 +8,4 @@ __pycache__/
 .venv/
 grading/records.jsonl
 grading/records.jsonl.gz*
+!web/dashboard.db
