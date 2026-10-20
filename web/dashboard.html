@@ -1,0 +1,26 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Spotify Review Pipeline</title>
+<style>body{font-family:system-ui;max-width:960px;margin:2rem auto;padding:0 1rem;color:#222}
+table{border-collapse:collapse;width:100%;margin:1rem 0}td,th{border:1px solid #ddd;padding:6px 10px;text-align:left}
+th{background:#f4f4f4}.bar{background:#1db954;height:14px;display:inline-block}
+.card{display:inline-block;background:#f7f7f7;border-radius:8px;padding:12px 18px;margin:6px}
+.card b{display:block;font-size:1.6rem}h1,h2{color:#191414}pre{background:#f7f7f7;padding:1rem;white-space:pre-wrap}</style></head>
+<body><h1>Spotify Review Pipeline - Decision Dashboard</h1>
+<div id="cards"></div><h2>Intent &amp; severity</h2><div id="breakdown"></div>
+<h2>Issue ranking (complaints + cancellations, priority = severity sum)</h2>
+<table id="issues"><thead><tr><th>#</th><th>Issue</th><th>Complaints</th><th>Severity sum</th><th>Mean severity</th><th></th></tr></thead><tbody></tbody></table>
+<h2>AI recommendation (grounded in saved metrics + evidence)</h2><pre id="memo">loading...</pre>
+<script>
+async function j(u){const r=await fetch(u);return r.json()}
+(async()=>{
+const m=await j('/api/metrics');
+cards.innerHTML=[['Source rows',m.source_rows],['Classified',m.completed],['Quarantined',m.quarantined],
+ ['Cache-served (no API call)',m.cache_served],['API spend ($)',(+m.spend_usd).toFixed(4)]]
+ .map(([k,v])=>`<div class="card"><b>${v}</b>${k}</div>`).join('');
+breakdown.innerHTML='<b>Intent:</b> '+m.intent_breakdown.map(r=>`${r.intent}: ${r.n}`).join(' · ')
+ +'<br><b>Severity:</b> '+m.severity_hist.map(r=>`${r.severity}: ${r.n}`).join(' · ');
+const iss=await j('/api/issues');const max=Math.max(...iss.map(r=>r.priority_score),1);
+issues.querySelector('tbody').innerHTML=iss.map((r,i)=>`<tr><td>${i+1}</td><td>${r.name||r.issue_id}</td>
+ <td>${r.complaint_count}</td><td>${r.priority_score}</td><td>${r.mean_severity}</td>
+ <td><span class="bar" style="width:${Math.round(150*r.priority_score/max)}px"></span></td></tr>`).join('');
+memo.textContent=await (await fetch('/api/memo')).text();
+})();</script></body></html>

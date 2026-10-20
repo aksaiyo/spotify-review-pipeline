@@ -1,0 +1,8 @@
+{
+  "ingest_s": 0.06,
+  "classify_cold_s": 47.34,
+  "verify_s": 22.8,
+  "group_rank_s": 4.36,
+  "classify_warm_s": 0.13,
+  "warm_new_enrichment_calls": 0
+}

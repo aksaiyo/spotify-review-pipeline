@@ -1,0 +1,2 @@
+model,input_per_1m,cached_per_1m,output_per_1m,dated
+gpt-6-luna,0.10,0.01,0.50,2026-10-19

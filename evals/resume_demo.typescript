@@ -1,0 +1,4 @@
+classify: 3721 pending reviews to process, spent_so_far=$0.2038, workers=6
+cache hits: 0; distinct texts to send: 3674
+classify: 2909 pending reviews to process, spent_so_far=$0.2385, workers=6
+cache hits: 0; distinct texts to send: 2874
