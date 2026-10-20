@@ -3,7 +3,7 @@ services:
     name: spotify-review-dashboard
     runtime: python
     plan: free
-    buildCommand: "echo no build step (stdlib only)"
+    buildCommand: "python3 --version"
     startCommand: "python3 web/backend.py"
     envVars:
       - key: PIPELINE_DB
