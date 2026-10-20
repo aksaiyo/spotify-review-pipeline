@@ -35,7 +35,7 @@
       "source": "https://developers.openai.com/api/docs/models/gpt-6-luna"
     }
   },
-  "recomputed_at": 1792525897.7774048,
+  "recomputed_at": 1792526882.1498013,
   "projections": {
     "measured_per_review_usd": 4.33e-05,
     "cold_reviews_measured": 100,

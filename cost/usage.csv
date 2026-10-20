@@ -1,0 +1,5 @@
+request_id,run_id,role,phase,model,input_tokens,cached_input_tokens,output_tokens,cost_usd_recomputed_from_rates_csv,maps_to_pilot_calls_line
+cold-call-1,pilot-cold,enrich,cold,gpt-6-luna,3302,0,3556,0.002108,1
+cold-call-2,pilot-cold,enrich,cold,gpt-6-luna,3376,0,3761,0.002218,2
+cold-call-3,pilot-verify,verify,cold,gpt-6-luna,1840,0,2893,0.001631,3
+cold-call-4,pilot-group,group,cold,gpt-6-luna,1445,0,298,0.000293,4
