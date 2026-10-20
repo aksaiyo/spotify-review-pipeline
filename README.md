@@ -5,7 +5,7 @@
 - Course: MBA 290T Fundamentals of Agentic AI, Assignment 5
 - Source data: [Spotify dataset ZIP](https://drive.google.com/file/d/1P0rUoAS_wVjp3BYKqXMEyD4u0uJP1Bvf/view?usp=drivesdk)
 - Source file: `spotify_reviews_18months.csv`, 97,400,616 bytes, sha256 `1fc85de68a304dd8978b537cfa58793d5f41cbaf417fa32cb53899f83a2fcef6`
-- Live dashboard: TODO_DEPLOY_URL (access instructions below)
+- Live dashboard: not deployed yet (run `PIPELINE_DB=runs/pipeline.db python3 web/backend.py`, then open http://localhost:8080)
 
 ## 1. What this is
 A coordinated multi-role pipeline that ingests 660,622 Spotify app-store reviews, classifies
@@ -84,9 +84,8 @@ severity 1-5. Worked examples in the enrich prompt (`prompts/enrich_v1.md`).
   membership.csv, ranking.csv, claims.csv, calls.jsonl).
 - Ranking: `priority_score = severity_sum`, tie-break ascending issue_id; means 6-decimal
   ROUND_HALF_UP. Reproducible from saved membership + enriched tables.
-- One traced review: TODO (source ID -> enrichment -> verification -> membership -> ranking -> memo claim).
-- One failed/ambiguous case and its handling: TODO (reviews containing JSON blobs / injection-like
-  text - see the salvage parser note).
+- One traced review: `02ebf89c-b923-44b8-92d1-972df45c4ee7` (source sha256 prefix 362ca104642e): "What's with this new update... If we click a song, another song comes to play instead of what I wanted. Can't skip songs. Playlist ain't working. Ads all the time..." -> enrichment topic=usability, intent=complaint, severity=4, evidence quote (exact substring) "If we click a song , another song comes to play instead of what I wanted . Can't skip songs." -> membership in issue `usability-ads` -> that issue ranks #1 (3,809 complaints, severity sum 9,525) -> memo claims cite those numbers and list this review as evidence.
+- Failed/ambiguous case: some reviews contain JSON blobs or instruction-like text that made the model run on past the schema and hit the 8,000-token output cap ("truncated at max_output_tokens"). Handling: the call is ledgered as invalid, retried once, then the reviews stay pending (counted as unprocessed, not silently dropped). A salvage parser keeps the first complete JSON object when the model only appends trailing junk. A synthetic injection test is in `pipeline/tests_awkward.py` (marked synthetic, excluded from aggregates).
 
 ## 10. Decision memo
 `runs/memo.md`: priority issue, alternatives, representative review IDs, limitations.
@@ -96,7 +95,7 @@ saved calculations.
 ## 11. Dashboard
 - Database: SQLite `runs/pipeline.db` (source of truth for the backend).
 - Backend: `web/backend.py` (stdlib, serves /api/metrics, /api/issues, /api/memo from the DB).
-- Dashboard: TODO_DEPLOY_URL - metrics shown match saved calculations; recommendations cite
+- Dashboard: local run only so far - metrics shown match saved calculations; recommendations cite
   supporting metrics and evidence IDs.
 
 ## 12. Limitations and failure accounting
