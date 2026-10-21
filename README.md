@@ -5,7 +5,7 @@
 - Course: MBA 290T Fundamentals of Agentic AI, Assignment 5
 - Source data: [Spotify dataset ZIP](https://drive.google.com/file/d/1P0rUoAS_wVjp3BYKqXMEyD4u0uJP1Bvf/view?usp=drivesdk)
 - Source file: `spotify_reviews_18months.csv`, 97,400,616 bytes, sha256 `1fc85de68a304dd8978b537cfa58793d5f41cbaf417fa32cb53899f83a2fcef6`
-- Live dashboard: not deployed yet (run `PIPELINE_DB=runs/pipeline.db python3 web/backend.py`, then open http://localhost:8080)
+- Live dashboard: https://spotify-review-dashboard.onrender.com/ (Render free instance; first load after idle can take ~50s to wake)
 
 ## 1. What this is
 A coordinated multi-role pipeline that ingests 660,622 Spotify app-store reviews, classifies
