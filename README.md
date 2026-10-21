@@ -81,8 +81,12 @@ severity 1-5. Worked examples in the enrich prompt (`prompts/enrich_v1.md`).
 ## 6. Golden set and evaluation
 - 50 hand-labeled reviews (labeled by the author, blind to model output):
   https://docs.google.com/spreadsheets/d/1IbtB_lo1V5RKwas8zQfyQG5gWTtNG6EG_Ey4dBgX1Yo
-- Golden texts are in the classified corpus; golden answer labels are never model inputs.
-- `evals/golden_eval.json`: per-case and per-field accuracy. Pending: the author's hand labels were not finished when this was written; run `python3 pipeline/eval_golden.py runs/pipeline.db` after labeling.
+- Golden answer labels are never model inputs; the enrich prompt only ever receives review text.
+- The 100K classified scope covered 9 of the 50 golden reviews; the other 41 were classified in a
+  supplementary run (run_id `golden-fill`, same prompt, schema, model and settings; $0.0017 ledgered)
+  so all 50 golden reviews have predictions.
+- `evals/golden_eval.json`: per-case and per-field accuracy from `python3 pipeline/eval_golden.py`.
+  Result (50/50 predicted): topic accuracy 0.80, intent 0.86, severity 0.70, exact-match 0.54.
 - Independent verifier procedure: deterministic sample (seed 42), verifier gets the original
   text + rubric, never the enricher's answer; code compares fields (`evals/verify_main-verify.json`).
 - Planted-error and injection tests: `evals/awkward_tests.json` (6 offline + 2 live checks).
@@ -92,7 +96,7 @@ severity 1-5. Worked examples in the enrich prompt (`prompts/enrich_v1.md`).
 - Pilot: 100 reviews, cold run then warm replay - `cost/pilot_calls.jsonl`,
   `cost/pilot_records.jsonl`, `cost/pilot_timing.json`.
 - Calculator: `cost/calculator.py` + dated editable `cost/rates.csv`; offline by default.
-- Measured per-review cost: 71.5 input + 74.9 output tokens = $0.0000446 per review (gpt-6-luna, reasoning none; $0.10/M in, $0.50/M out). Budget decision: hard stop $9.00 total spend. Final run spend: $4.39 in the ledger of the final DB, plus ~$0.36 from a first run whose sandbox was wiped (about $4.75 total, under the $10 cap).
+- Measured per-review cost: 71.5 input + 74.9 output tokens = $0.0000446 per review (gpt-6-luna, reasoning none; $0.10/M in, $0.50/M out). Budget decision: hard stop $9.00 total spend. Final run spend: $4.39 in the ledger of the final DB, plus ~$0.36 from a first run whose sandbox was wiped (about $4.75 total, plus $0.0017 for the supplementary golden-set classification, under the $10 cap).
 - Full-run (660K) scenario from measured rates: about $23, which is over the $10 cap, so scope is the 100K floor. `python3 cost/calculator.py` replays this offline.
 
 ## 8. Interruption and resume
